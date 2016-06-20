@@ -3,6 +3,11 @@ html, body {
   width: 100%;
 }
 
+a, a:hover {
+  text-decoration: none;
+  color: #373a3c;
+}
+
 .navbar-default {
     background-color: white;
     border-bottom: 1px solid rgba(34, 34, 34, 0.05);

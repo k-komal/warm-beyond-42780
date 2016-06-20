@@ -144,22 +144,32 @@ var CardItem = React.createClass({
     } else {
       partner = (<span className="label label-primary">Partner</span>);
     }
+    var link = 'https://www.coursera.org/';
+    if(this.props.data.courseType == 'v1.session') {
+      link += 'course/' + this.props.data.slug;
+    } else if(this.props.data.courseType == 'v2.ondemand') {
+      link += 'learn/' + this.props.data.slug;
+    } else {
+      link += '/courses?query=' + this.props.data.name;
+    }
     return (
-      <div className="card">
-        <img className="card-img" src={this.props.data.photo} />
-        <div className="card-img-overlay">
-          <div className="card-block">
-            <h4 className="card-title otto">{this.props.data.name}</h4>
+      <a href={link} target='_blank'>
+        <div className="card">
+          <img className="card-img" src={this.props.data.photo} />
+          <div className="card-img-overlay">
+            <div className="card-block">
+              <h4 className="card-title otto">{this.props.data.name}</h4>
+            </div>
           </div>
+          <div className="card-block partner">
+            {partner}
+            <p>{this.props.data.partner.partname}</p>
+          </div>
+          <ul className="list-group list-group-flush">
+            <InstructorList data={this.props.data.instructor} />
+          </ul>
         </div>
-        <div className="card-block partner">
-          {partner}
-          <p>{this.props.data.partner.partname}</p>
-        </div>
-        <ul className="list-group list-group-flush">
-          <InstructorList data={this.props.data.instructor} />
-        </ul>
-      </div>
+      </a>
     );
   }
 });

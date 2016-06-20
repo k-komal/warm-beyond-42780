@@ -29,7 +29,7 @@ def search_result(request):
         api = "https://api.coursera.org/api/courses.v1?q=search&start=" + \
             str(start) + \
             "&limit=10&includes=instructorIds,partnerIds" + \
-            "&&fields=photoUrl,instructorIds,partnerIds," + \
+            "&fields=slug,courseType,photoUrl,instructorIds,partnerIds," + \
             "instructors.v1(firstName,lastName,suffix)," + \
             "partners.v1(logo)&query=" + \
             query
@@ -89,6 +89,8 @@ def search_result(request):
             name = results["elements"][i]['name']
             photo = results["elements"][i]['photoUrl']
             inst = results["elements"][i]['instructorIds']
+            slug = results["elements"][i]['slug']
+            courseType = results["elements"][i]['courseType']
             instructor = []
             for j in range(0, len(inst)):
                 if j == 2:
@@ -99,7 +101,7 @@ def search_result(request):
             partner = part_dic[pid]
             result.append(
                 {"name": name, "photo": photo, "instructor": instructor,
-                 "partner": partner})
+                 "partner": partner, "slug": slug, "courseType": courseType})
 
         facet = dict()
         f = results["paging"]["facets"]

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load jsonify %}
+
+{% block content %}
+<script type="text/javascript" defer>
+  window.CS = {};
+  CS.data = {
+    facet: {{facet|jsonify}},
+    query: "{{query}}",
+    result: {{result|jsonify}},
+    next: {{next|jsonify}},
+    nextQuery: window.location.search,
+    availability: {{availability|jsonify}},
+    domains: {{domains|jsonify}},
+    primaryLanguages: {{primaryLanguages|jsonify}},
+    subtitleLanguages: {{subtitleLanguages|jsonify}}
+  };
+</script>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand page-scroll" href="/">CS</a>
+            <form class="navbar-form navbar-left" role="search" id='searchForm'>
+              <div class="form-group">
+                <input type="text" class="form-control" required placeholder="Search" name="query" value="{{query}}">
+              </div>
+              <button type="submit" class="btn btn-secondary">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            <button type="button" data-target="#facetColumns" data-toggle="collapse" class="navbar-toggle btn btn-secondary"><i class="fa fa-filter" aria-hidden="true"></i>
+            </button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container" id="results"></div>
+<script type="text/babel" defer src='{% static "js/main.js" %}'></script>
+{% endblock %}
